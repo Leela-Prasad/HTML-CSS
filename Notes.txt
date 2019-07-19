@@ -1,0 +1,231 @@
+HTML document is used for 
+Content
+Structure
+Functionality
+
+CSS document is used for 
+Layout
+Styling
+
+Styling information should not be part of HTML document and it should go a separate document in CSS file.
+
+i.e., <font size=“12”>
+This line should not be used in HTML as size information is specified.
+
+
+CSS can be applied in 3 ways.
+1. Inline CSS
+<span style=“font-size:12px”>
+This needs be avoided as it is mixing functionality and styling.
+
+2. Internal Stylesheet
+<head>
+  <style type=“text/css”>
+    p {color: red;}
+  </style>
+</head>
+This is accepted as styles will go in head section and functionality will go in body section.
+
+3. External Stylesheet
+<head>
+  <link rel=“stylesheet” href=“path_to_css_file” type=“text/css” />
+</head>
+
+<p id=“first” class=“red”>
+…
+</p>
+
+In the above p tag styling can be applied in 3 ways.
+
+p {color: green;}
+#first {color: blue;}
+.red {color: red;}
+
+Here id is defined with #
+class is defined with .
+
+If there are conflicts in style then below precedence is followed.
+Id 
+class
+tag level
+
+so the output style will be blue.
+
+—
+p {color: green; font-size: 14px;}
+#first {color: blue;}
+.red {color: red;}
+
+Here the output will be 
+color will be blue and font-size will be 14px
+
+This is because the precedence level will not apply to the WHOLE BLOCK INSTEAD IT WILL APPLY TO INDIVIDUAL RULE WITH IN A BLOCK SEPARATELY.
+
+—
+<div id=“first”>
+  <p class=“red”> … </p>
+</div>
+<p class=“red”>… </p>
+
+#first {color: blue;}
+.red {color: red;}
+#first .red {color: green;}
+
+Here the color will be green because styling DEPENDS ON THE PRECESSION(i.e., NESTING).
+
+—
+
+<div id=“div1”>
+  <div id=“div2”>
+    <div class=“div3”>
+      <p class=“p1”> … </p>
+    </div>
+  </div>
+</div>
+
+#div1 p {color: red;}
+#div2 .p1 {color: green;}   - div2 is near and class precende is more so here the color will be green
+#div1 #div2 {color: blue;}  - color will be green only as #div2 .p1 is more precise as it reached .p1 line
+#div3 .p1 {color: yellow;} -this is not valid as div3 is a class so it should start with .
+
+
+
+#div2 .p1 
+#div1 #div2 p - here this will win because even though it reached same line the nesting is  more to this line so it is more precise.
+
+
+
+If we have different styles for the same element then the one which comes later will be applied.
+#div1 p {color: red;}
+#div2 .p1 {color: green;} 
+#div1 #div2  p {color: blue;} 
+#div3 .p1 {color: yellow;}
+#div1 #div2  p {color: black;} - here this will be applied between line 3 and 6
+
+
+
+Difference between div and span:
+
+Div is blocks where as span is for inline
+since span is inline we can’t apply layout styling such as borders,width,height etc
+Div is used for sections and span is used for phrases.
+
+
+XHTML Rules:
+1. Void elements are not allowed.
+<img src=“images/myImage.gif”> - this is not a valid XHTML
+<img src=“images/myImage.gif” /> - this is a valid XHTML
+
+2. Tag names are case sensitive
+<p>some text</p>
+<P>some text</P>
+In XHTML only lower case tag names are allowed.
+
+3. Attribute values must be in quotes.
+<table border=1></table> - This is not a valid XHTML
+<table border=“1”></table> - This is a valid XHTML
+
+4. Empty attributes are not allowed.
+<input type=“checkbox” selected /> - This is not a valid XHTML
+<input type=“checkbox” selected=“true” /> - This is a valid XHTML
+
+Meter vs Progress
+Meter tag is used to show the static value i.e., it will update only when the browser is refreshed manually 
+It changes color form green to yellow to red
+
+Progress tag will change when there is a change in some value using the javascript function.
+so this is used as a timer or anything that display changes without refresh.
+It doesn’t change color, it will always be in blue.
+
+
+<meter value=“0.75”></meter>
+In some browsers this meter tag will not work for that we can use below one to show the number
+<meter value=“0.75”>75%</meter>
+
+meter will not work if it is self closing. Below line will not work.
+<meter value=“0.75” />
+
+we can define the range 
+<meter min=“0” max=“20” value=“8”></meter>
+<meter min=“0” max=“20” value=“8”>8 out of 20</meter>
+
+
+we can use low and high to inform whether our progress is at risk or very low.
+<meter min=“0” max=“100” low=“10” high=“20” optimum=“1” value=“5”></meter>5% <br />
+<meter min=“0” max=“100” low=“10” high=“20” optimum=“1” value=“15”></meter>15% <br />
+<meter min=“0” max=“100” low=“10” high=“20” optimum=“1” value=“95”></meter>95% <br />
+
+Here optimum is required so that it display same across browsers.
+
+Progress:
+<progress id=“myProgress” value=“0” max=“100”></progress><span id=“progressValue”>0</span> 
+<button type=“button” onclick=“increaseProgress();”>continue</button>
+
+In progress we can use java script function to update the value.
+Progress is used to update the value dynamically
+progress doesn’t work if it is self closing . Below link will not work.
+<progress id=“myProgress” value=“0” max=“100” />
+
+
+Details and Summary:
+These tags are used to create collapsable sections in a page.
+<details>
+  <summary>Chapter 1</summary>
+  <p>Introduction of HTML</p>
+</details>
+
+we can use open attribute to make the section open on page load
+<details open>
+  <summary>Chapter 1</summary>
+  <p>Introduction of HTML</p>
+</details>
+
+Output:
+Output tag is useful when we want to update a value automatically when an event happens.
+*** Output tag must be used in a form tag.
+
+<form oninput=“rangeValue.value = range.value;”>
+  <input type=“range” name=“range” max=“0” max=“50” value=“25” />
+  <output name=“rangeValue”>25</output>
+</form>
+
+Video:
+<video src=“file-path”>alternative text</video>
+<audio src=“file-path”>alternative text</audio>
+
+Video with controls
+<video controls=“true” src=“myVideo.mp4”></video>
+
+Video with autoplay option
+<video autoplay=“true” loop=“true” muted=“true” src=“myVideo.mp4”></video>
+
+Video with an image
+<video controls=“true” poster=“placeholder.png” src=“myVideo.mp4”></video>
+
+Adjusting Height and Width:
+<video height=“600” width=“800” controls=“true” poster=“placeholder.png” src=“myVideo.mp4”></video>
+
+Video with multiple formats
+<video controls=“true”>
+  <source src=“myVideo.mp4” type=“video/mp4” />
+  <source src=“myVideo.webm” type=“video/webm” />
+</video>
+
+Video with multiple resolutions
+<video controls=“true”>
+  <source src=“myVideoHDFull.mp4” type=“video/mp4” media=“screen and (device-aspect-ratio:1920/1080)”/>
+  <source src=“myVideoHD.mp4” type=“video/mp4” media=“screen and (device-aspect-ratio:1280/720)”/>
+  <source src=“myVideoSD.mp4” type=“video/mp4” media=“screen and (device-aspect-ratio:800/600)”/>
+</video>
+
+
+
+Viewport:
+viewport is the visible area of the web page.
+If the viewport is not there then the entire page is in visible area which is not good for mobile phones.
+
+Target Screen sizes:
+upto 300 pixels
+301 to 800 pixels
+801 pixels or greater
+These are called breakpoints when the screen hits the certain level of pixels the styling will change and it will apply corresponding pixel sizing.
